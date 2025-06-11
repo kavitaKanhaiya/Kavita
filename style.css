@@ -1,0 +1,1032 @@
+/* --- Global Styles & Variables --- */
+:root {
+    --bg-color: #FFF5FA;
+    /* Very soft pink (Floral White / Seashell) */
+    --card-bg: #FFFFFF;
+    --primary-pink: #FFB6C1;
+    /* LightPink */
+    --accent-pink: #FF69B4;
+    /* HotPink */
+    --text-color: #5D4037;
+    /* Soft Brown for readability */
+    --heading-color: #C71585;
+    /* MediumVioletRed for headings */
+    --highlight-color: #FFE4E1;
+    /* MistyRose for hovers */
+    --shadow-color: rgba(200, 100, 150, 0.15);
+    /* Soft pinkish shadow */
+    --glow-color: #FF69B4;
+    /* HotPink for glow effect */
+    --error-color: #D32F2F;
+    /* A suitable red for errors */
+
+    --font-primary: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-cursive: 'Dancing Script', 'Great Vibes', 'Pacifico', cursive;
+    /* Added more options */
+    --font-hindi: 'Noto Sans Devanagari', Arial, sans-serif;
+
+    --border-radius: 15px;
+    --card-shadow: 0 5px 20px var(--shadow-color);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.7;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    /* Prevent horizontal scroll from hearts/balloons */
+    position: relative;
+}
+
+/* --- Password Gate --- */
+#password-gate {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    /* Highest z-index */
+    text-align: center;
+    padding: 20px;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease, visibility 0s linear 0s;
+}
+
+#password-gate.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+}
+
+.password-prompt {
+    background-color: var(--card-bg);
+    padding: 35px 45px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    max-width: 450px;
+    width: 100%;
+}
+
+.password-prompt h2 {
+    font-family: var(--font-cursive);
+    color: var(--heading-color);
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.password-prompt p {
+    margin-bottom: 25px;
+    font-size: 1.05em;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+#passwordInput {
+    width: 100%;
+    padding: 14px 18px;
+    margin-bottom: 25px;
+    border: 1px solid var(--primary-pink);
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-family: var(--font-primary);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#passwordInput:focus {
+    outline: none;
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 8px var(--accent-pink);
+}
+
+#submitPassword {
+    background: linear-gradient(135deg, var(--accent-pink), var(--primary-pink));
+    color: white;
+    border: none;
+    padding: 14px 35px;
+    font-size: 1.15em;
+    font-family: var(--font-primary);
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease;
+}
+
+#submitPassword:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+}
+
+#submitPassword:active {
+    transform: translateY(-1px);
+}
+
+.error-message {
+    color: var(--error-color);
+    font-size: 0.95em;
+    margin-top: 15px;
+    font-weight: 600;
+}
+
+/* --- Falling Hearts Background --- */
+.falling-hearts-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    /* Behind everything */
+}
+
+.heart-particle {
+    position: absolute;
+    font-size: 20px;
+    color: var(--primary-pink);
+    opacity: 0.7;
+    user-select: none;
+    animation: fallAndFade 10s linear infinite;
+}
+
+@keyframes fallAndFade {
+    0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(110vh) translateX(var(--drift-x, 20vw)) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* --- Page Wrapper --- */
+.page-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    /* For z-index stacking context */
+    z-index: 10;
+    /* Above balloons, below popups */
+}
+
+/* --- General Card Style --- */
+.card {
+    background-color: var(--card-bg);
+    padding: 25px 30px;
+    margin-bottom: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+h2 {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    color: var(--heading-color);
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.cursive-text {
+    font-family: var(--font-cursive);
+    font-weight: 700;
+    /* Dancing Script needs weight for boldness */
+}
+
+/* --- Header --- */
+header {
+    padding: 40px 20px;
+    text-align: center;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, var(--primary-pink), var(--highlight-color));
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+}
+
+header h1 {
+    font-family: var(--font-cursive);
+    font-size: 2.8em;
+    color: var(--heading-color);
+    margin-bottom: 10px;
+}
+
+header .subtitle {
+    font-size: 1.4em;
+    opacity: 0.9;
+}
+
+/* --- Romantic Quote --- */
+#romantic-quote .hindi-quote {
+    font-family: var(--font-hindi);
+    /* Keeping this specific for this section if needed */
+    font-size: 1.7em;
+    color: var(--accent-pink);
+    font-style: italic;
+    line-height: 1.8;
+}
+
+/* --- Reasons I Love You --- */
+#reasons-i-love-you ul {
+    list-style: none;
+    padding: 0;
+}
+
+#reasons-i-love-you li {
+    font-family: var(--font-hindi);
+    font-size: 1.25em;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    background-color: var(--bg-color);
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+#reasons-i-love-you li:hover {
+    background-color: var(--primary-pink);
+    color: var(--card-bg);
+    transform: translateX(5px) scale(1.02);
+}
+
+/* --- Gallery Section --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.gallery-grid figure {
+    background-color: var(--highlight-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0 4px 10px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery-grid figure:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 6px 15px var(--shadow-color);
+}
+
+.gallery-grid img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 4px solid var(--primary-pink);
+}
+
+.gallery-grid figcaption {
+    padding: 15px;
+    font-size: 0.95em;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+/* --- Special Dates --- */
+.dates-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.date-item {
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    min-width: 280px;
+    transition: transform 0.3s ease;
+}
+
+.date-item:hover {
+    transform: scale(1.03);
+}
+
+.date-item .icon {
+    font-size: 2em;
+    color: var(--accent-pink);
+}
+
+.date-info {
+    text-align: left;
+}
+
+.date-info .date-label {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+.date-info .date-value {
+    font-size: 1em;
+    color: var(--text-color);
+}
+
+/* --- Surprise Section (Button Container) --- */
+.surprise-container {
+    background: transparent;
+    box-shadow: none;
+    padding: 20px 0;
+}
+
+.surprise-container:hover {
+    transform: none;
+    /* Override general card hover */
+    box-shadow: none;
+}
+
+#surpriseButton {
+    background: linear-gradient(135deg, var(--accent-pink), var(--primary-pink));
+    color: white;
+    border: none;
+    padding: 18px 35px;
+    font-size: 1.2em;
+    font-family: var(--font-primary);
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    transition: all 0.3s ease;
+}
+
+#surpriseButton:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.6);
+}
+
+#surpriseButton:active {
+    transform: translateY(-1px) scale(1.02);
+}
+
+/* --- Surprise Popup --- */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1500;
+    /* Above main content, below password gate */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+}
+
+.popup-overlay.visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0s linear 0s;
+}
+
+.popup-content {
+    background-color: var(--card-bg);
+    padding: 30px 40px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    position: relative;
+    box-shadow: 0 0 0px 0px var(--glow-color);
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28),
+        opacity 0.3s ease-out,
+        box-shadow 0.5s ease-out;
+}
+
+.popup-overlay.visible .popup-content {
+    transform: scale(1);
+    opacity: 1;
+    animation: glowEffect 1.5s ease-out forwards;
+}
+
+@keyframes glowEffect {
+    0% {
+        box-shadow: 0 0 0px 0px var(--glow-color);
+    }
+
+    50% {
+        box-shadow: 0 0 25px 10px var(--glow-color);
+    }
+
+    100% {
+        box-shadow: 0 0 10px 5px var(--glow-color);
+    }
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-popup:hover {
+    color: var(--accent-pink);
+}
+
+.popup-message {
+    font-size: 2em;
+    /* Uses --font-cursive from .cursive-text class in HTML */
+    color: var(--accent-pink);
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.popup-signature {
+    font-size: 1.3em;
+    color: var(--text-color);
+    margin-top: 20px;
+}
+
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 30px;
+    background-color: var(--highlight-color);
+    color: var(--text-color);
+    font-size: 0.95em;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+}
+
+/* --- Glowing Heart Trail Cursor --- */
+.cursor-heart-trail {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FF69B4'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    z-index: 9999;
+    /* Above everything */
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease-out;
+}
+
+/* --- Love Timer Widget --- */
+#love-timer .timer-container {
+    padding: 15px;
+    background-color: var(--highlight-color);
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+#love-timer .timer-container p {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+}
+
+#timer-display {
+    /* .cursive-text class added in HTML provides font */
+    font-size: 1.8em;
+    color: var(--accent-pink);
+    font-weight: bold;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+/* --- Love Quote Carousel --- */
+#love-quotes-carousel .quote-carousel-viewport {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    /* Adjust as needed */
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#love-quotes-carousel .quote-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+#love-quotes-carousel .quote-slide.active {
+    opacity: 1;
+}
+
+#love-quotes-carousel .hindi-quote {
+    /* .cursive-text in HTML provides font */
+    font-size: 1.6em;
+    color: var(--accent-pink);
+    font-style: italic;
+    line-height: 1.6;
+    padding: 0 10px;
+}
+
+/* --- Interactive Love Letter --- */
+#love-letter-section {
+    padding-bottom: 40px;
+}
+
+.love-letter-envelope {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    height: 200px;
+    background-color: var(--highlight-color);
+    margin: 20px auto 0;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: var(--primary-pink);
+    border-bottom: 2px solid var(--accent-pink);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 0.6s ease-in-out;
+    z-index: 2;
+}
+
+.love-letter-envelope.open .envelope-flap {
+    transform: rotateX(-180deg);
+}
+
+.envelope-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+    /* For open-prompt fade */
+}
+
+.envelope-body .open-prompt {
+    color: var(--heading-color);
+    font-weight: bold;
+    font-size: 1.1em;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.love-letter-envelope.open .open-prompt {
+    opacity: 0;
+}
+
+/* --- Interactive Love Letter --- */
+#love-letter-section {
+    padding-bottom: 40px;
+}
+
+.love-letter-envelope {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    height: 200px;
+    background-color: var(--highlight-color);
+    margin: 20px auto 0;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    overflow: hidden;
+    /* Crucial: This hides the letter wrapper when it's 0 height */
+}
+
+.envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-color: var(--primary-pink);
+    border-bottom: 2px solid var(--accent-pink);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 0.6s ease-in-out;
+    z-index: 2;
+}
+
+.love-letter-envelope.open .envelope-flap {
+    transform: rotateX(-180deg);
+}
+
+.envelope-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    transition: opacity 0.3s ease;
+}
+
+.envelope-body .open-prompt {
+    color: var(--heading-color);
+    font-weight: bold;
+    font-size: 1.1em;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+.love-letter-envelope.open .open-prompt {
+    opacity: 0;
+}
+
+/* Corrected styles for letter content */
+.letter-content-wrapper {
+    /* This handles the collapse/expand animation */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    /* Clip its own content during collapse */
+    transition: max-height 0.8s ease-out 0.3s, opacity 0.5s ease-out 0.3s;
+    background-color: var(--card-bg);
+    /* Paper color */
+    border-radius: 0 0 5px 5px;
+    /* Bottom corners of the paper */
+}
+
+.love-letter-envelope.open .letter-content-wrapper {
+    max-height: 500px;
+    /* Adjust if your letter is very long */
+    opacity: 1;
+}
+
+.letter-content-inner {
+    /* This handles the padding and holds the actual text */
+    padding: 110px 20px 20px 20px;
+    /* Top padding to clear the flap visually */
+    text-align: left;
+    height: auto;
+    /* Let content define its height */
+    overflow-y: auto;
+    /* Add scroll if content exceeds wrapper's max-height */
+}
+
+.letter-content-inner h3 {
+    /* Target h3 inside the new inner div */
+    font-family: var(--font-cursive);
+    /* Ensure cursive font if not using class directly on h3 */
+    color: var(--heading-color);
+    margin-top: 0;
+    /* Important: remove default top margin */
+    margin-bottom: 15px;
+    font-size: 1.8em;
+}
+
+.letter-content-inner p {
+    /* Target p inside the new inner div */
+    font-size: 1.05em;
+    line-height: 1.8;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.letter-content-inner .signature {
+    /* Target signature inside the new inner div */
+    font-family: var(--font-cursive);
+    /* Ensure cursive font */
+    text-align: right;
+    font-size: 1.5em;
+    color: var(--accent-pink);
+    margin-top: 10px;
+    /* Added some top margin for spacing */
+}
+
+
+/* --- Floating Balloons --- */
+#balloons-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+    /* Behind main content page-wrapper, above bg-hearts */
+}
+
+.balloon {
+    position: absolute;
+    bottom: -150px;
+    width: 80px;
+    height: 100px;
+    background-color: var(--primary-pink);
+    /* Default, JS can override */
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    opacity: 0.7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 0.7em;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    animation: floatUp 15s linear infinite;
+    /* JS sets duration per balloon */
+}
+
+.balloon::before {
+    /* Balloon knot */
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    background: inherit;
+    border-radius: 0 0 50% 50%;
+}
+
+.balloon-name {
+    margin: 2px 0;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    25% {
+        transform: translateY(-25vh) translateX(var(--drift-x-balloon, 5vw)) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-50vh) translateX(var(--drift-x-balloon-2, -5vw)) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-75vh) translateX(var(--drift-x-balloon, 5vw)) rotate(5deg);
+    }
+
+    100% {
+        transform: translateY(-120vh) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .page-wrapper {
+        padding: 15px;
+    }
+
+    .password-prompt {
+        padding: 25px 30px;
+    }
+
+    .password-prompt h2 {
+        font-size: 1.8em;
+    }
+
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    header .subtitle {
+        font-size: 1.2em;
+    }
+
+    h2 {
+        font-size: 1.6em;
+    }
+
+    #romantic-quote .hindi-quote {
+        font-size: 1.4em;
+    }
+
+    #reasons-i-love-you li {
+        font-size: 1.1em;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .gallery-grid img {
+        height: 180px;
+    }
+
+    .dates-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .date-item {
+        min-width: 90%;
+        justify-content: center;
+    }
+
+    .date-item .icon {
+        font-size: 1.8em;
+    }
+
+    .popup-content {
+        width: 90%;
+        padding: 25px;
+    }
+
+    .popup-message {
+        font-size: 1.6em;
+    }
+
+    .popup-signature {
+        font-size: 1.1em;
+    }
+
+    /* New Elements Responsive */
+    #timer-display {
+        font-size: 1.5em;
+    }
+
+    #love-quotes-carousel .hindi-quote {
+        font-size: 1.3em;
+    }
+
+    #love-quotes-carousel .quote-carousel-viewport {
+        height: 80px;
+    }
+
+    .love-letter-envelope {
+        height: 180px;
+    }
+
+    .envelope-flap {
+        height: 90px;
+    }
+
+    .letter-content {
+        padding-top: 100px;
+    }
+
+    .letter-content h3 {
+        font-size: 1.6em;
+    }
+
+    .letter-content p {
+        font-size: 1em;
+    }
+
+    .balloon {
+        width: 60px;
+        height: 75px;
+        font-size: 0.6em;
+    }
+}
+
+@media (max-width: 480px) {
+    .password-prompt {
+        padding: 20px;
+    }
+
+    .password-prompt h2 {
+        font-size: 1.6em;
+    }
+
+    .password-prompt p {
+        font-size: 0.95em;
+    }
+
+    #passwordInput {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+
+    #submitPassword {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+
+    header h1 {
+        font-size: 1.8em;
+    }
+
+    header .subtitle {
+        font-size: 1.1em;
+    }
+
+    .card {
+        padding: 20px;
+    }
+
+    #romantic-quote .hindi-quote {
+        font-size: 1.2em;
+    }
+
+    #reasons-i-love-you li {
+        font-size: 1em;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        /* Single column */
+    }
+
+    .gallery-grid img {
+        height: 200px;
+    }
+
+    #surpriseButton {
+        padding: 15px 30px;
+        font-size: 1.1em;
+    }
+
+    .popup-message {
+        font-size: 1.4em;
+    }
+
+    /* New Elements Responsive Small */
+    #timer-display {
+        font-size: 1.3em;
+    }
+
+    #love-quotes-carousel .hindi-quote {
+        font-size: 1.1em;
+    }
+
+    #love-quotes-carousel .quote-carousel-viewport {
+        height: 70px;
+    }
+
+    .love-letter-envelope {
+        width: 95%;
+        height: 160px;
+    }
+
+    .envelope-flap {
+        height: 80px;
+    }
+
+    .letter-content {
+        padding-top: 90px;
+    }
+
+    .letter-content h3 {
+        font-size: 1.4em;
+    }
+
+    .letter-content p {
+        font-size: 0.9em;
+    }
+
+    .balloon {
+        width: 50px;
+        height: 65px;
+        font-size: 0.5em;
+    }
+}

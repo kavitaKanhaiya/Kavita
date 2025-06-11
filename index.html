@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To My Beloved Kavita ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Great+Vibes&family=Pacifico&family=Noto+Sans+Devanagari:wght@400;700&family=Segoe+UI&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Password Gate -->
+    <div id="password-gate">
+        <form id="passwordForm" class="password-prompt">
+            <h2 class="cursive-text">Unlock My Heart ❤️</h2>
+            <p>Dearest Kavita, please enter the magic word to reveal your surprise:</p>
+            <input type="password" id="passwordInput" placeholder="Magic Word" required autocomplete="off">
+            <button type="submit" id="submitPassword">Unlock</button>
+            <p id="passwordError" class="error-message" style="display: none;">That's not it, my love. Try the word that defines us! 😉</p>
+        </form>
+    </div>
+
+    <!-- Falling Hearts Background (visible behind password prompt and main page) -->
+    <div class="falling-hearts-bg"></div>
+    <!-- Floating Balloons Container -->
+    <div id="balloons-container"></div>
+
+    <!-- Main Page Content (initially hidden) -->
+    <div class="page-wrapper" style="display: none;">
+        <header>
+            <h1>To My Beloved Wife, Kavita ❤️</h1>
+            <p class="subtitle">From your Kanhaiya 🥰</p>
+        </header>
+
+        <main>
+            <!-- Love Timer Widget -->
+            <section id="love-timer" class="card">
+                <h2>Our Journey Together 💑</h2>
+                <div class="timer-container">
+                    <p>Kanhaiya ❤️ Kavita</p>
+                    <p>Together since 27 November 2023</p>
+                    <div id="timer-display" class="cursive-text">
+                        <!-- Timer will be populated by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Love Quote Carousel -->
+            <section id="love-quotes-carousel" class="card">
+                <h2>Whispers of Love 💌</h2>
+                <div class="quote-carousel-viewport">
+                    <div class="quote-slide">
+                        <p class="hindi-quote cursive-text">"तुम मेरी सुबह की पहली सोच हो, और रात का आखिरी ख्वाब।"</p>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="hindi-quote cursive-text">"तुम्हारी मुस्कान मेरे दिल की धड़कन है, कविता।"</p>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="hindi-quote cursive-text">"हर पल तुम्हारे साथ, एक खूबसूरत कहानी जैसा है।"</p>
+                    </div>
+                    <div class="quote-slide">
+                        <p class="hindi-quote cursive-text">"तेरे इश्क में, मैं खुद को भूल जाता हूँ।"</p>
+                    </div>
+                </div>
+                <!-- Optional: Add prev/next buttons if desired -->
+            </section>
+
+            <section id="romantic-quote" class="card">
+                <p class="hindi-quote cursive-text">“तेरे बिना अधूरा हूँ मैं, तेरे साथ हर लम्हा पूरा लगता है ❤️”</p>
+            </section>
+
+            <section id="reasons-i-love-you" class="card">
+                <h2>💕 Reasons I Love You 💕</h2>
+                <ul>
+                    <li>तुम मेरी सबसे प्यारी दोस्त हो 🤗</li>
+                    <li>तुम्हारी मुस्कान मेरा सुकून है 😊</li>
+                    <li>तुम मेरी प्रेरणा हो 🌸</li>
+                    <li>तुम्हारा साथ मेरी ताकत है 💪</li>
+                    <li>तुमने मुझे बेहतर इंसान बनाया है ✨</li>
+                    <li>तुम्हारी आँखों में मेरा जहाँ बसता है 👀</li>
+                    <li>हर पल तुम्हारे साथ खास होता है 💖</li>
+                </ul>
+            </section>
+
+            <!-- Interactive Love Letter -->
+            <section id="love-letter-section" class="card">
+                <h2>A Letter For You, My Love 💌</h2>
+                            <section id="love-letter-section" class="card">
+                <h2>A Letter For You, My Love 💌</h2>
+                <div class="love-letter-envelope">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body">
+                        <p class="open-prompt">Click to open my heart...</p>
+                    </div>
+                    <!-- This div will handle the max-height transition -->
+                    <div class="letter-content-wrapper">
+                        <!-- This inner div will handle the padding and actual content -->
+                        <div class="letter-content-inner">
+                            <h3 class="cursive-text">My Dearest Kavita,</h3>
+                            <p>Every day with you feels like a beautiful dream I never want to wake up from. You are the melody in my life's song, the sunshine on my cloudy days, and the love that completes me.</p>
+                            <p>Your smile, your laughter, your kindness – everything about you captivates me. Thank you for being my rock, my confidante, and my greatest adventure.</p>
+                            <p>With all my love, forever and always,</p>
+                            <p class="cursive-text signature">- Your Kanhaiya ❤️</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            </section>
+
+            <section id="gallery" class="card">
+                <h2>📸 Beautiful Memories of Kanhaiya & Kavita 💑</h2>
+                <div class="gallery-grid">
+                    <figure>
+                        <img src="images/1.jpg" alt="Kanhaiya and Kavita - Together">
+                        <figcaption>Together Forever 💖</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/2.jpg" alt="Kanhaiya and Kavita - Happy Moment">
+                        <figcaption>Sweet Moments 🥰</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/3.jpg" alt="Kanhaiya and Kavita - Our Journey">
+                        <figcaption>Our Journey ✨</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/4.jpg" alt="Kanhaiya and Kavita - Love">
+                        <figcaption>Unending Love 💌</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/5.jpg" alt="Kanhaiya and Kavita - Special Day">
+                        <figcaption>Magical Times 🌟</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="images/6.jpg" alt="Kanhaiya and Kavita - Smile">
+                        <figcaption>Always Smiling 😊</figcaption>
+                    </figure>
+                </div>
+            </section>
+
+            <section id="special-dates" class="card">
+                <h2>📅 Our Special Dates 📅</h2>
+                <div class="dates-container">
+                    <div class="date-item">
+                        <span class="icon">🎂</span>
+                        <div class="date-info">
+                            <span class="date-label">Kavita's Birthday</span>
+                            <span class="date-value">15 July</span>
+                        </div>
+                    </div>
+                    <div class="date-item">
+                        <span class="icon">💍</span>
+                        <div class="date-info">
+                            <span class="date-label">Our Marriage Anniversary</span>
+                            <span class="date-value">27 November 2023</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="surprise" class="surprise-container">
+                <button id="surpriseButton">Click for Your Surprise 💖</button>
+            </section>
+        </main>
+
+        <footer>
+            <p>Made with ❤️ by Kanhaiya for Kavita 💖</p>
+        </footer>
+    </div>
+
+    <!-- Surprise Popup -->
+    <div id="surprisePopup" class="popup-overlay">
+        <div class="popup-content">
+            <span class="close-popup" id="closePopupBtn">×</span>
+            <p class="popup-message cursive-text">Kavita, you are my forever.<br>I love you endlessly.</p>
+            <p class="popup-signature">– Yours, Kanhaiya ❤️</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
